@@ -1,0 +1,26 @@
+---
+title: "Challenge 2 R Markdown"
+author: "Jin Xiao"
+date: "7/16/2020"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Select the associations that have combined_score < 0.5. The final file includes these selected records with node 1, node 2 and value of the combined score.
+
+```{r}
+trpv1_new <- read.csv("trpv1.tsv", sep="\t")
+trpv1_new_small <- trpv1_new [,c(1,2,15)]
+trpv1_new_small_filtered <- subset(trpv1_new_small, combined_score < 0.5)
+write.table(trpv1_new_small_filtered, "trpv1newsmallfiltered.txt", sep="\t", quote = FALSE, row.names = FALSE)
+png('trpv1newsmall.png')
+plot(trpv1_new_small_filtered$combined_score)
+dev.off()
+message("Script ran successfully, all outputs are in the working directory")
+```
